@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.7/semantic.css" rel="stylesheet"/>
+    <link href="app.css" rel="stylesheet"/>
+    <script src="base.js"></script>
+    <script src="game.js"></script>
+  </head>
+  <body>
+    <h1 class="ui header">3 gewinnt</h1>
+    <table class="ui basic collapsing celled unstackable table">
+      <thead id="buttons" class="center aligned">
+        <tr>
+          <th>
+            <button class="ui yellow icon button" onclick="insertChip(0)">
+              <i class="arrow circle down icon"></i>
+            </button>
+          </th>
+          <th>
+            <button class="ui yellow icon button" onclick="insertChip(1)">
+              <i class="arrow circle down icon"></i>
+            </button>
+          </th>
+          <th>
+            <button class="ui yellow icon button" onclick="insertChip(2)">
+              <i class="arrow circle down icon"></i>
+            </button>
+          </th>
+          <th>
+            <button class="ui yellow icon button" onclick="insertChip(3)">
+              <i class="arrow circle down icon"></i>
+            </button>
+          </th>
+        </tr>
+      </thead>
+      <tbody class="center aligned" id="field">
+        <tr>
+          <td><span class="ui circular label"></span></td>
+          <td><span class="ui circular label"></span></td>
+          <td><span class="ui circular label"></span></td>
+          <td><span class="ui circular label"></span></td>
+        </tr>
+        <tr>
+          <td><span class="ui circular label"></span></td>
+          <td><span class="ui circular label"></span></td>
+          <td><span class="ui circular label"></span></td>
+          <td><span class="ui circular label"></span></td>
+        </tr>
+        <tr>
+          <td><span class="ui circular label yellow"></span></td>
+          <td><span class="ui circular label yellow"></span></td>
+          <td><span class="ui circular label red"></span></td>
+          <td><span class="ui circular label"></span></td>
+        </tr>
+        <tr>
+          <td><span class="ui circular label red"></span></td>
+          <td><span class="ui circular label yellow"></span></td>
+          <td><span class="ui circular label red"></span></td>
+          <td><span class="ui circular label red"></span></td>
+        </tr>
+      </tbody>
+    </table>
+    <button onclick="newGame()" class="ui button">neues Spiel</button>
+  </body>
+</html>
