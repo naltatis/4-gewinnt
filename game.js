@@ -2,9 +2,17 @@
 
 var aktuelleFarbe = 'yellow';
 
+var zaehler = [0,0,0,0];
+
 function einwerfen(spalte) {
-  base.setColor(spalte, 3, aktuelleFarbe);
+  var zeile = naechsteFreieZeile(spalte);
+  base.setColor(spalte, zeile, aktuelleFarbe);
+  zaehler[spalte] += 1;
   spielerWechseln();
+}
+
+function naechsteFreieZeile(spalte) {
+  return 3 - zaehler[spalte];
 }
 
 function spielerWechseln() {
@@ -21,6 +29,7 @@ function chipsLoeschen() {
 }
 
 function neuesSpiel() {
-  chipsLoeschen()
+  chipsLoeschen();
   base.setControlColor(aktuelleFarbe);  
+  zaehler = [0,0,0,0];
 }
