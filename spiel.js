@@ -2,8 +2,8 @@
 
 var aktuelleFarbe = 'yellow';
 
-var spalten = 4;
-var zeilen = 4;
+var spalten = 10;
+var zeilen = 10;
 
 var zaehler = [0];
 var spielfeld = [[]];
@@ -13,6 +13,9 @@ function einwerfen(spalte) {
   anzeige.chipSetzen(spalte, zeile, aktuelleFarbe);
   spielfeld[spalte][zeile] = aktuelleFarbe;
   zaehler[spalte] += 1;
+  if (zaehler[spalte] == spalten) {
+    anzeige.deaktiviereButton(spalte);
+  }
   console.table(spielfeld);
   pruefeObGewonnen();
   spielerWechseln();
@@ -28,7 +31,7 @@ function pruefeObGewonnen() {
 }
 
 function naechsteFreieZeile(spalte) {
-  return 3 - zaehler[spalte];
+  return (zeilen - 1) - zaehler[spalte];
 }
 
 function spielerWechseln() {
@@ -40,13 +43,15 @@ function spielerWechseln() {
 function neuesSpiel() {
   anzeige.neuesSpielfeld(spalten, zeilen);
   anzeige.spielerSetzen(aktuelleFarbe);
-  zaehler = [0,0,0,0];
-  spielfeld = [
-    [null, null, null, null],
-    [null, null, null, null],
-    [null, null, null, null],
-    [null, null, null, null]
-  ]
+  zaehler = [];
+  spielfeld = [];
+  for (var spaltenNr = 0; spaltenNr < spalten; spaltenNr++) {
+    spielfeld[spaltenNr] = [];
+    zaehler[spaltenNr] = 0;
+    for (var zeilenNr = 0; zeilenNr < zeilen; zeilenNr++) {
+      spielfeld[spaltenNr][zeilenNr] = null;
+    }
+  }
 }
 
 function hatGewonnen(spielfeld) {
@@ -56,10 +61,10 @@ function hatGewonnen(spielfeld) {
 
 function hatVertikalGewonnen(spielfeld) {
   console.log("... vertikal")
-  for(var spalte = 0; spalte <= 3; spalte++) {
+  for(var spalte = 0; spalte < spalten; spalte++) {
     var vorherigesFeld = null;
     var wievielGleiche = 0;
-    for(var zeile = 0; zeile <= 3; zeile++) {
+    for(var zeile = 0; zeile < zeilen; zeile++) {
       var feld = spielfeld[spalte][zeile];
       if (feld != vorherigesFeld || feld == null) {
         vorherigesFeld = feld;
@@ -78,10 +83,10 @@ function hatVertikalGewonnen(spielfeld) {
 
 function hatHorizontalGewonnen(spielfeld) {
   console.log("... horizontal")
-  for(var zeile = 0; zeile <= 3; zeile++) {
+  for(var zeile = 0; zeile < zeilen; zeile++) {
     var vorherigesFeld = null;
     var wievielGleiche = 0;
-    for(var spalte = 0; spalte <= 3; spalte++) {
+    for(var spalte = 0; spalte < spalten; spalte++) {
       var feld = spielfeld[spalte][zeile];
       if (feld != vorherigesFeld || feld == null) {
         vorherigesFeld = feld;

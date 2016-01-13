@@ -25,7 +25,7 @@
     });
   }
   
-  function buttonDeaktivieren(spalte) {
+  function deaktiviereButton(spalte) {
     return document.querySelector('#buttons th:nth-child('+(spalte+1)+') button').setAttribute("disabled", true);
   }
   
@@ -57,7 +57,7 @@
     neuesSpielfeld,
     chipSetzen,
     spielerSetzen,
-    buttonDeaktivieren
+    deaktiviereButton
   };
 
 })(window)
