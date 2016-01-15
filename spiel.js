@@ -2,8 +2,8 @@
 
 var aktuelleFarbe = 'yellow';
 
-var spalten = 10;
-var zeilen = 10;
+var spalten = 8;
+var zeilen = 8;
 
 var zaehler = [0];
 var spielfeld = [[]];
@@ -23,10 +23,16 @@ function einwerfen(spalte) {
 
 function pruefeObGewonnen() {
   if (hatGewonnen(spielfeld)) {
-    alert("Spieler " + aktuelleFarbe + " hat gewonnen!");
-    neuesSpiel()
+    anzeige.zeigeGewonnen(aktuelleFarbe);
+    deaktiviereAlleButton();
   } else {
     console.log("noch nicht gewonnen, weitermachen ...");
+  }
+}
+
+function deaktiviereAlleButton() {
+  for(var spalte = 0; spalte < spalten; spalte++) {
+    anzeige.deaktiviereButton(spalte);
   }
 }
 
@@ -56,11 +62,13 @@ function neuesSpiel() {
 
 function hatGewonnen(spielfeld) {
   console.log("prüfe ob gewonnen ...")
-  return hatHorizontalGewonnen(spielfeld) || hatVertikalGewonnen(spielfeld)
+  return hatHorizontalGewonnen(spielfeld)
+          || hatVertikalGewonnen(spielfeld)
+          || hatDiagonalRunterGewonnen(spielfeld)
+          || hatDiagonalRaufGewonnen(spielfeld)
 }
 
 function hatVertikalGewonnen(spielfeld) {
-  console.log("... vertikal")
   for(var spalte = 0; spalte < spalten; spalte++) {
     var vorherigesFeld = null;
     var wievielGleiche = 0;
@@ -72,8 +80,8 @@ function hatVertikalGewonnen(spielfeld) {
       } else {
         wievielGleiche++;
       }
-      if (wievielGleiche == 3) {
-        console.log("GEWONNEN!!!!!");
+      if (wievielGleiche == 4) {
+        console.log("vertikal gewonnen!!!!!");
         return true;
       }
     }
@@ -82,7 +90,6 @@ function hatVertikalGewonnen(spielfeld) {
 }
 
 function hatHorizontalGewonnen(spielfeld) {
-  console.log("... horizontal")
   for(var zeile = 0; zeile < zeilen; zeile++) {
     var vorherigesFeld = null;
     var wievielGleiche = 0;
@@ -94,11 +101,43 @@ function hatHorizontalGewonnen(spielfeld) {
       } else {
         wievielGleiche++;
       }
-      if (wievielGleiche == 3) {
-        console.log("GEWONNEN!!!!!");
+      if (wievielGleiche == 4) {
+        console.log("horizontal gewonnen!!!!!");
         return true;
       }
     }
   }
   return false;
+}
+
+function hatDiagonalRunterGewonnen(feld) {
+  for(var s = 0; s < spalten - 3; s++) {
+    for(var z = 0; z < zeilen - 3; z++) {
+      var wert = feld[s][z];
+      if (wert != null &&
+          wert == feld[s+1][z+1] &&
+          wert == feld[s+2][z+2] &&
+          wert == feld[s+3][z+3]) {
+        console.log("diagonal runter gewonnen!!!!!");
+        return true;
+            
+      }
+    }
+  }
+}
+
+function hatDiagonalRaufGewonnen(feld) {
+  for(var s = 0; s < spalten - 3; s++) {
+    for(var z = 3; z < zeilen; z++) {
+      var wert = feld[s][z];
+      if (wert != null &&
+          wert == feld[s+1][z-1] &&
+          wert == feld[s+2][z-2] &&
+          wert == feld[s+3][z-3]) {
+        console.log("diagonal rauf gewonnen!!!!!");
+        return true;
+            
+      }
+    }
+  }
 }

@@ -9,6 +9,12 @@
     cell.classList.remove('red');
     cell.classList.remove('yellow');
   }
+  
+  function zeigeGewonnen(spieler) {
+    var el = document.querySelector('#win');
+    el.classList.remove('hidden');
+    el.querySelector('span').innerHTML = spieler;
+  }
 
   function chipSetzen(spalte, zeile, farbe) {
     chipLoeschen(spalte, zeile);
@@ -50,12 +56,14 @@
     }
     buttons += '</tr>';
     document.querySelector('#buttons').innerHTML = buttons;
+    document.querySelector('#win').classList.add('hidden');
   }
 
   
   window.anzeige = {
     neuesSpielfeld,
     chipSetzen,
+    zeigeGewonnen,
     spielerSetzen,
     deaktiviereButton
   };
